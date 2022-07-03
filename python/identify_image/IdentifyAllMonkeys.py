@@ -12,7 +12,7 @@ def main():
     findOnImage(image=mapImage, object=monkeyImage, path=path)
 
 
-def findOnImage(image, object, path, threshold=0.616, method=cv.TM_CCOEFF_NORMED,):
+def findOnImage(image, object, path, threshold=0.616, method=cv.TM_CCOEFF_NORMED):
     # pegando dimensoes do projeto
     objectWidth = object.shape[1]
     objectHeight = object.shape[0]
