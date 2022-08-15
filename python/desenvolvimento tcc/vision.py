@@ -50,7 +50,7 @@ class Vision:
             #print('Found needle.')
 
             lineColor = (0, 255, 0)
-            lineType = cv.LINE_4
+            lineType = cv.LINE_8
             markerColor = (255, 0, 255)
             markerType = cv.MARKER_CROSS
 
@@ -67,7 +67,7 @@ class Vision:
                     bottomRight = (x + width, y + height)
                     # Draw the box
                     cv.rectangle(screen, topLeft, bottomRight, color=lineColor,
-                                 lineType=lineType, thickness=2)
+                                 lineType=lineType, thickness=4)
                 elif debugMode == 'points':
                     # Draw the center point
                     cv.drawMarker(screen, (centerX, centerY),
@@ -75,4 +75,4 @@ class Vision:
                                   markerSize=40, thickness=2)
 
         if debugMode:
-            cv.imshow('Matches', screen)
+            return screen
