@@ -9,7 +9,9 @@ while(True):
 
     screenshot = windowCapture.get_screenshot()
 
-    visionMonkey.find(screenshot, 0.6, 'rectangles')
+    result = visionMonkey.find(screenshot, 0.6, 'rectangles')
+
+    cv.imshow('Matches', result)
 
     if cv.waitKey(1) == ord('q'):
         cv.destroyAllWindows()

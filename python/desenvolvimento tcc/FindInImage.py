@@ -7,11 +7,11 @@ visionMonkey = Vision('./images/chao_mapa_bloons.png')
 
 while(True):
 
-    screenshot = mapImage = cv.imread(
+    screenshot = cv.imread(
         './images/maps/beginner/map_monkey_meadow.png', cv.IMREAD_UNCHANGED)
 
     cv.imwrite('retorno_identificacao_fundo.png',
-               visionMonkey.find(screenshot, 0.5, 'rectangles'))
+               visionMonkey.find(screenshot, 0.55, 'rectangles'))
 
     break
     # if cv.waitKey(1) == ord('q'):
