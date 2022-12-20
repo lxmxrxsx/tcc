@@ -1,27 +1,31 @@
+from ctypes import sizeof
 import cv2 as cv
 from matplotlib import pyplot as plt
 import numpy as np
+import image as img
+
+# histograma automatico
 
 
 def main():
-    imagePath = getImage('monkey_meadow')
+    imagePath = img.get('monkey_meadow')
     image = readImage(imagePath)
     channelH, _, _ = convertToHSV(image)
     hist = histogram(channelH)
     binary = binaryImage(hist, channelH)
-    morph = morphologicOperation(binary)
+    return morphologicOperation(binary)
 
 
 def readImage(imagePath):
     image = cv.imread(imagePath)
-    saveImage('original', image)
+    img.save('original', image)
     return image
 
 
 def convertToHSV(imageBGR):
     imgHSV = cv.cvtColor(imageBGR, cv.COLOR_BGR2HSV)
     h, s, v = cv.split(imgHSV)
-    saveImage('channel_h', h)
+    img.save('channel_h', h)
     return h, s, v
 
 
@@ -32,7 +36,7 @@ def histogram(image):
     hist = cv.calcHist([image], [0], None, [180], [0, 180])
     plt.hist(image.ravel(), 180, [0, 180])
     plt.title("histograma H")
-    saveImage('hist', None, 'plt')
+    img.save('hist', None, 'plt')
     return hist
 
 
@@ -41,7 +45,7 @@ def binaryImage(hist, image):
     # o que está no range fica branco
     pathColor = findPathPosition(hist)
     binImage = cv.inRange(image, pathColor-1, pathColor+1)
-    saveImage('binary', binImage)
+    img.save('binary', binImage)
     return binImage
 
 
@@ -69,33 +73,16 @@ def morphologicOperation(image):
     strElement = cv.getStructuringElement(cv.MORPH_RECT, (8, 8))
     morph = cv.morphologyEx(image, cv.MORPH_ERODE, strElement)
 
-    for i in range(8):
+    for _ in range(8):
         strElement = cv.getStructuringElement(cv.MORPH_ELLIPSE, (15, 15))
         morph = cv.morphologyEx(morph, cv.MORPH_DILATE, strElement)
 
-    for i in range(4):
+    for _ in range(4):
         strElement = cv.getStructuringElement(cv.MORPH_ELLIPSE, (17, 17))
         morph = cv.morphologyEx(morph, cv.MORPH_ERODE, strElement)
 
-    saveImage('morphologic', morph)
+    img.save('morphologic', morph)
     return morph
-
-
-def saveImage(name, image, provider='cv'):
-    prefix = './images/pre_processing/'
-    sufix = '.png'
-    path = prefix + name + sufix
-
-    if provider == 'cv':
-        cv.imwrite(path, image)
-    elif provider == 'plt':
-        plt.savefig(path)
-
-
-def getImage(name):
-    prefix = './images/maps/'
-    sufix = '.png'
-    return prefix + name + sufix
 
 
 main()

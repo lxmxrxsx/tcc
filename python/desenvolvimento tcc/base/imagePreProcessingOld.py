@@ -5,7 +5,7 @@ import numpy as np
 # img = cv.imread(
 #     './images/maps/beginner/map_monkey_meadow.png')
 
-img = cv.imread('./testImages/Screenshot_1.png')
+img = cv.imread('../testImages/Screenshot_1.png')
 
 imgHSV = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 
