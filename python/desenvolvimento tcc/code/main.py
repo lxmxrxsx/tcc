@@ -48,7 +48,7 @@ def main():
 
             i = i+1
             print("--- {:02f}%: {} de {} --- data: {} ---".format((i *
-                  100)/until, i, until, weightsResult[h0, w0]))
+                                                                   100)/until, i, until, weightsResult[h0, w0]))
 
     try:
         img.save('weightsResult', weightsResult)
@@ -87,17 +87,15 @@ def main():
         print('f')
 
     morphologic = cv.imread(img.get('morphologic'))
-    result = cv.imread(img.get('result_heatmap'))
+    result = cv.imread(img.get('trueHeatmap_2'))
+
+    fig = plt.figure(figsize=(15, 7))
 
     morphologic_not = cv.bitwise_not(morphologic)
 
     resultMap = cv.bitwise_and(morphologic_not, result)
 
-    try:
-        heatmapWPath = cv.bitwise_and(morphologic_not, heatmap)
-        img.save('heatmap_and_path_2', heatmapWPath)
-    except:
-        print('f')
+    img.save('heatmap_and_path_2', resultMap)
 
     fig = plt.figure(figsize=(15, 7))
 
@@ -111,15 +109,15 @@ def main():
 
     fig = plt.figure(figsize=(15, 7))
 
-    ax1 = fig.add_subplot(121)
-    plt.imshow(heatmap)
+    # ax1 = fig.add_subplot(121)
+    # plt.imshow(heatmap)
 
-    ax2 = fig.add_subplot(122)
-    plt.imshow(percentualResult)
+    # ax2 = fig.add_subplot(122)
+    # plt.imshow(percentualResult)
 
-    plt.show()
+    # plt.show()
 
-    plt.imshow(heatmap)
+    # plt.imshow(heatmap)
 
 
 main()

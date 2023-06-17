@@ -24,6 +24,7 @@ def readImage(imagePath):
 
 def convertToHSV(imageBGR):
     imgHSV = cv.cvtColor(imageBGR, cv.COLOR_BGR2HSV)
+    img.save('hsv_image', imgHSV)
     h, s, v = cv.split(imgHSV)
     img.save('channel_h', h)
     return h, s, v
@@ -65,7 +66,7 @@ def findPathPosition(hist):
     # retornar um array [(3,6), (7,5)]
 
     # alterar o valor retornado
-    return 33
+    return 168
 
 
 def morphologicOperation(image):
@@ -73,13 +74,22 @@ def morphologicOperation(image):
     strElement = cv.getStructuringElement(cv.MORPH_RECT, (8, 8))
     morph = cv.morphologyEx(image, cv.MORPH_ERODE, strElement)
 
-    for _ in range(8):
-        strElement = cv.getStructuringElement(cv.MORPH_ELLIPSE, (15, 15))
-        morph = cv.morphologyEx(morph, cv.MORPH_DILATE, strElement)
+    # for _ in range(8):
+    #     strElement = cv.getStructuringElement(cv.MORPH_ELLIPSE, (15, 15))
+    #     morph = cv.morphologyEx(morph, cv.MORPH_DILATE, strElement)
 
-    for _ in range(4):
-        strElement = cv.getStructuringElement(cv.MORPH_ELLIPSE, (17, 17))
-        morph = cv.morphologyEx(morph, cv.MORPH_ERODE, strElement)
+    # for _ in range(4):
+    #     strElement = cv.getStructuringElement(cv.MORPH_ELLIPSE, (17, 17))
+    #     morph = cv.morphologyEx(morph, cv.MORPH_ERODE, strElement)
+
+    # for monkey meadow
+    # for _ in range(8):
+    #     strElement = cv.getStructuringElement(cv.MORPH_ELLIPSE, (15, 15))
+    #     morph = cv.morphologyEx(morph, cv.MORPH_DILATE, strElement)
+
+    # for _ in range(4):
+    #     strElement = cv.getStructuringElement(cv.MORPH_ELLIPSE, (17, 17))
+    #     morph = cv.morphologyEx(morph, cv.MORPH_ERODE, strElement)
 
     img.save('morphologic', morph)
     return morph
